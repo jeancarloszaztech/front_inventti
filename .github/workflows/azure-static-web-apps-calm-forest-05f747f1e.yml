@@ -15,23 +15,33 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
+      # Passo para fazer o checkout do repositório
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
+
+      # Passo para instalar as dependências do projeto
+      - name: Install Dependencies
+        run: npm install
+
+      # Passo para rodar o build do projeto Quasar
+      - name: Build the project
+        run: npm run build
+
+      # Passo para fazer o deploy para Azure Static Web Apps
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_CALM_FOREST_05F747F1E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Usado para integrações com GitHub (comentários em PR, etc.)
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist/spa" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          ###### Configurações de Repositório/Build ######
+          app_location: "/" # Caminho do código-fonte do App
+          api_location: "" # Caminho do código-fonte da API - opcional
+          output_location: "dist/spa" # Diretório de conteúdo do app compilado
+          ###### Fim das Configurações de Repositório/Build ######
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

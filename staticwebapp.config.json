@@ -8,5 +8,9 @@
   "mimeTypes": {
     ".js": "application/javascript",
     ".css": "text/css"
+  },
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "*.css", "*.js", "*.png", "*.jpg", "*.svg"]
   }
 }

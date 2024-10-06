@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Install Yarn Dependencies
-        run: npx yarn install
+        run: npm run yarn
 
       # Passo para rodar o build do projeto Quasar
       - name: Build the project
